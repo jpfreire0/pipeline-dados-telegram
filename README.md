@@ -196,7 +196,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
 LOCATION
-  's3://modulo-42-ebac-jp-datalake-enriched/telegram/'
+  '---'
 ```
 ``` sql
 MSCK REPAIR TABLE `telegram`;
