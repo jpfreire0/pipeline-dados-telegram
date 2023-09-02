@@ -202,3 +202,57 @@ LOCATION
 MSCK REPAIR TABLE `telegram`;
 ```
 ## Análise Exploratória de Dados
+Para testes, vamos rodar consultas SQL para obter algumas informações dos dados obtidos.
+
+- Quantidade de mensagens por dia
+``` sql
+SELECT 
+  context_date, 
+  count(1) AS "message_amount" 
+FROM "telegram" 
+GROUP BY context_date 
+ORDER BY context_date DESC
+```
+
+|#|context_date|message_amount|
+|---|---|---|
+|1|2023-09-01|22|
+
+- Quantidade de mensagens por usuário por dia
+
+``` sql
+SELECT 
+  user_id, 
+  user_first_name, 
+  context_date, 
+  count(1) AS "message_amount" 
+FROM "telegram" 
+GROUP BY 
+  user_id, 
+  user_first_name, 
+  context_date 
+ORDER BY context_date DESC
+```
+
+|#|user_id|user_first_name|context_date|message_amount|
+|---|---|---|---|---|
+|1|5930352495|JP|2023-09-01|22|
+
+- Média do tamanho das mensagens por usuário por dia
+``` sql
+SELECT 
+  user_id, 
+  user_first_name, 
+  context_date,
+  CAST(AVG(length(text)) AS INT) AS "average_message_length" 
+FROM "telegram" 
+GROUP BY 
+  user_id, 
+  user_first_name, 
+  context_date 
+ORDER BY context_date DESC
+```
+
+|#|user_id|user_first_name|context_date|average_message_length|
+|---|---|---|---|---|
+|1|5930352495|JP|2023-09-01|21|
